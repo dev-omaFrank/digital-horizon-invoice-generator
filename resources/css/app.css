@@ -1,0 +1,74 @@
+/* resources/css/app.css */
+@config "../../tailwind.config.js";
+@reference "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --color-primary: 37 99 235;
+  --color-primary-dark: 30 64 175;
+  --color-primary-light: 59 130 246;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  button {
+    @apply transition-all duration-200;
+  }
+
+  a{
+    @apply no-underline;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-white rounded-lg font-semibold transition-colors;
+  }
+
+  .btn-primary:hover {
+    @apply bg-primary-dark;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-slate-300 text-slate-900 rounded-lg font-semibold transition-colors;
+  }
+
+  .btn-outline:hover {
+    @apply bg-slate-100;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-200 p-6;
+  }
+
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-24 sm:py-32;
+  }
+
+  .feature-card {
+    @apply bg-white rounded-2xl border border-slate-200 p-8 transition-shadow;
+  }
+
+  .feature-card:hover {
+    @apply shadow-lg;
+  }
+
+  .stat-card {
+    @apply bg-white rounded-2xl border border-slate-200 p-6;
+  }
+}

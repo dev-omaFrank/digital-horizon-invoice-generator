@@ -1,0 +1,9 @@
+{
+    "agents": [
+        "cursor"
+    ],
+    "skills": [
+        "pest-testing",
+        "tailwindcss-development"
+    ]
+}
