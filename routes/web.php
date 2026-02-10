@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +14,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::view('/clients', 'pages.clients');
     Route::view('/invoices', 'pages.invoices');
     Route::view('/settings', 'pages.settings');
+});
+
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::post('/create-business-profile', [BusinessProfileController::class, 'createBusiness']);
 });
 
 
