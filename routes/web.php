@@ -10,7 +10,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::view('/dashboard', 'pages.dashboard');
+    Route::view('/dashboard', 'pages.dashboard')->name('pages.dashboard');
     Route::view('/clients', 'pages.clients');
     Route::view('/invoices', 'pages.invoices');
     Route::view('/settings', 'pages.settings');
@@ -19,6 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/create-business-profile', [BusinessProfileController::class, 'createBusiness']);
+    Route::post('/create-client', []);
 });
 
 
