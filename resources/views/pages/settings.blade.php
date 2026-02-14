@@ -6,7 +6,7 @@
         <div class="flex-1 p-6 space-y-6">
             <div class="p-6 max-w-4xl space-y-8">
                 <!-- Business Profile -->
-                <form action="/create-business-profile" method="POST" enctype="multipart/form-data">
+                <form action="/business/create-business-profile" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <h2 class="text-xl font-bold text-slate-900 mb-2">Business Profile</h2>

@@ -29,33 +29,61 @@
                                     <th class="px-4 py-3 text-right text-xs font-semibold text-slate-600">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach([
-                                ['Acme Corp', 'billing@acme.com', 12, '$15,400.00'],
-                                ['Global Tech', 'finance@globaltech.io', 8, '$8,200.00'],
-                                ['Stellar Design', 'hello@stellar.design', 5, '$4,150.00'],
-                                ['Urban Apps', 'accounts@urbanapps.com', 15, '$22,300.00'],
-                                ['Nexus Ltd', 'nexus@example.com', 3, '$2,800.00']
-                                ] as $client)
-                                <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="h-10 w-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm">
-                                                {{ substr($client[0], 0, 1) }}
-                                            </div>
-                                            <p class="text-sm font-semibold text-slate-900">{{ $client[0] }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-slate-600">{{ $client[1] }}</td>
-                                    <td class="px-4 py-3 text-sm text-slate-900">{{ $client[2] }}</td>
-                                    <td class="px-4 py-3 text-sm font-semibold text-slate-900">{{ $client[3] }}</td>
-                                    <td class="px-4 py-3 text-right">
-                                        <button class="text-slate-400 hover:text-slate-600 transition-colors text-sm font-medium">Edit</button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                           <tbody>
+    @if($clients->isEmpty())
+        <tr>
+            <td colspan="5" class="px-4 py-6 text-center text-sm text-slate-500">
+                No clients found.
+            </td>
+        </tr>
+    @else
+        @foreach($clients as $client)
+            <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+
+                <!-- Client Name -->
+                <td class="px-4 py-3">
+                    <div class="flex items-center gap-3">
+                        <div class="h-10 w-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm">
+                            {{ $client->client_name ? substr($client->client_name, 0, 1) : '-' }}
+                        </div>
+                        <p class="text-sm font-semibold text-slate-900">
+                            {{ $client->client_name ?? '---' }}
+                        </p>
+                    </div>
+                </td>
+
+                <!-- Email -->
+                <td class="px-4 py-3 text-sm text-slate-600">
+                    {{ $client->client_email ?? '---' }}
+                </td>
+
+                <!-- Total Invoices (placeholder if not implemented yet) -->
+                <td class="px-4 py-3 text-sm text-slate-900">
+                    {{ $client->invoices_count ?? '---' }}
+                </td>
+
+                <!-- Total Billed (placeholder if not implemented yet) -->
+                <td class="px-4 py-3 text-sm font-semibold text-slate-900">
+                    {{ isset($client->total_billed) ? number_format($client->total_billed, 2) : '---' }}
+                </td>
+
+                <!-- Actions -->
+                <td class="px-4 py-3 text-right">
+                    <button class="text-slate-400 hover:text-slate-600 transition-colors text-sm font-medium">
+                        Edit
+                    </button>
+                </td>
+
+            </tr>
+        @endforeach
+    @endif
+</tbody>
+
                         </table>
+                        <div class="mt-6">
+                            {{ $clients->links() }}
+                        </div>
+
                     </div>
                 </div>
             </div>

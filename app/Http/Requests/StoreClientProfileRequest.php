@@ -11,7 +11,7 @@ class StoreClientProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreClientProfileRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            
+
             'clientAddress' => [
                 'required',
                 'string',
@@ -38,7 +38,7 @@ class StoreClientProfileRequest extends FormRequest
                 'required',
                 'email:rfc,dns',
                 'max:255',
-                'unique:clientes,client_email'
+                'unique:client_profile,client_email'
             ],
 
             'clientPhoneNo' => [
@@ -57,7 +57,7 @@ class StoreClientProfileRequest extends FormRequest
             'clientEmail.email' => 'Please enter a valid email address.',
             'clientPhoneNo.regex' => 'Phone number can only contain numbers and + ( ) - characters.',
             'clientAddress.required' => 'client address is required.',
-            'client_email.unique' => 'This email is already registered with another client.'
+            'clients_profile_email.unique' => 'This email is already registered with another client.'
         ];
     }
 }

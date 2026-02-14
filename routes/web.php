@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\CreateClientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,15 +12,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::view('/dashboard', 'pages.dashboard')->name('pages.dashboard');
-    Route::view('/clients', 'pages.clients');
+    Route::get('/clients', [CreateClientController::class, 'fetchClients']);
     Route::view('/invoices', 'pages.invoices');
     Route::view('/settings', 'pages.settings');
 });
 
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::post('/create-business-profile', [BusinessProfileController::class, 'createBusiness']);
-    Route::post('/create-client', []);
+    Route::post('/business/create-business-profile', [BusinessProfileController::class, 'createBusiness']);
+    Route::post('/client/create-client', [CreateClientController::class, 'createClient']);
 });
 
 
