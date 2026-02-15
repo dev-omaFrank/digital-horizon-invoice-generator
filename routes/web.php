@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::view('/dashboard', 'pages.dashboard')->name('pages.dashboard');
     Route::get('/clients', [CreateClientController::class, 'fetchClients']);
     Route::view('/invoices', 'pages.invoices');
+    Route::view('/invoices/create', 'invoices.create');
     Route::view('/settings', 'pages.settings');
 });
 
