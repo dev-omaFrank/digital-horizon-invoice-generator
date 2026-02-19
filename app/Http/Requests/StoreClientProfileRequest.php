@@ -36,9 +36,9 @@ class StoreClientProfileRequest extends FormRequest
 
             'clientEmail' => [
                 'required',
-                'email:rfc,dns',
+                'email:rfc',
                 'max:255',
-                'unique:client_profile,client_email'
+                'unique:client_profile,client_email,NULL,id,user_id,' . auth()->id(),
             ],
 
             'clientPhoneNo' => [

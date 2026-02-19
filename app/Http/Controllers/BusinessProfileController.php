@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBusinessProfileRequest;
 use App\Models\BusinessModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessProfileController extends Controller
 {
@@ -21,6 +22,7 @@ class BusinessProfileController extends Controller
 
 
         BusinessModel::create([
+            'user_id' => Auth::id(),
             'business_name' => $data['businessName'],
             'business_logo' => $data['business_logo'],
             'business_email' => $data['businessEmail'],

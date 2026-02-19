@@ -11,6 +11,7 @@ class ClientModel extends Model
     protected $table = 'client_profile';
 
     protected $fillable = [
+        'user_id',
         'client_name',
         'client_email',
         'client_phone_no',

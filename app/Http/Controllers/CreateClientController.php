@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientProfileRequest;
 use App\Models\ClientModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class CreateClientController extends Controller
 {

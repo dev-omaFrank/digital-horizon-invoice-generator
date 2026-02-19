@@ -43,9 +43,9 @@ class StoreBusinessProfileRequest extends FormRequest
 
             'businessEmail' => [
                 'required',
-                'email:rfc,dns',
+                'email:rfc',
                 'max:255',
-                'unique:businesses,business_email'
+                'unique:businesses,business_email,NULL,id,user_id,' . auth()->id(),
             ],
 
             'businessPhoneNo' => [
@@ -64,7 +64,7 @@ class StoreBusinessProfileRequest extends FormRequest
             'businessEmail.email' => 'Please enter a valid email address.',
             'businessPhoneNo.regex' => 'Phone number can only contain numbers and + ( ) - characters.',
             'businessAddress.required' => 'Business address is required.',
-            'business_email.unique' => 'This email is already registered with another business.'
+            'businessEmail.unique' => 'This email is already registered with another business.'
         ];
     }
 }
