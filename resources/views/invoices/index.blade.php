@@ -1,4 +1,4 @@
-<x-layout.app>
+<x-app-layout>
     <x-slot:title>Invoices</x-slot:title>
 
     @php
@@ -73,4 +73,4 @@
             </div>
         </div>
     </div>
-</x-layout.app>
+<x-app-layout>
