@@ -17,7 +17,7 @@ Route::get('/invoices/{invoice}/pdf-view', [InvoiceController::class, 'pdfView']
     ->middleware('signed'); 
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/dashboard', [DashboardController::class, 'fetchInvoices'])->name('pages.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'fetchDashboardStats'])->name('pages.dashboard');
 
     Route::get('/clients', [CreateClientController::class, 'fetchClients']);
 
@@ -29,7 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/invoices/invoice-{invoice}/pdf', [invoiceController::class, 'downloadInvoicePdf'])->name('invoices.pdf');
     
-    Route::view('/settings', 'pages.settings');
+    Route::get('/business-profile-settings', [BusinessProfileController::class, 'loadPage']);
+
+    Route::get('/business-profile', [BusinessProfileController::class, 'showBusinessProfile']);
 });
 
 

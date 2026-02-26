@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-auth-navbar />
+    <x-auth-navbar :userInitials="$userInitials"/>
 
     <div x-data="{ sidebarOpen: false }" class="flex min-h-screen bg-gray-100">
         <x-mobile-toggle-button />

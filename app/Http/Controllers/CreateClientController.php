@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientProfileRequest;
 use App\Models\ClientModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class CreateClientController extends Controller
 {
     public function fetchClients()
-    {
+    {        
+        $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
         $clients = ClientModel::withCount('invoices')
             ->withSum('invoices as total_billed', 'total')
             ->with(['invoices' => function($query){
@@ -20,7 +20,10 @@ class CreateClientController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        return view('pages.clients', ['clients' => $clients]);
+        return view('pages.clients', compact(
+            'userInitials',
+            'clients',
+        ));
     }
 
     public function createClient(StoreClientProfileRequest $request)
@@ -39,6 +42,5 @@ class CreateClientController extends Controller
             'message' => 'You have successfully created a client profile for ' . $data['clientName']
         ]);
 
-        // add error message space in add client popup
     }
 }

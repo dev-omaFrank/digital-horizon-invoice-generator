@@ -12,67 +12,67 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0010.5 10.5z" />
                         </svg>
-                        <input type="text" placeholder="Search clients..."
+                        <input type="text" placeholder="Search businesss..."
                             class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
                     </div>
-                    <button class="btn-primary" onclick="openModal()">Add Client</button>
+                    <button class="btn-primary" onclick="openModal()">Create New Business</button>
                 </div>
 
                 <div class="card">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6">All Clients</h2>
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">All Businesses</h2>
 
                     <div class="overflow-x-auto">
                         <table class="min-w-full">
                             <thead>
                                 <tr class="border-b border-slate-200">
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Client Name
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Business Name
                                     </th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Email</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Total Invoices
                                     </th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Total Billed
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Total businesss
                                     </th>
                                     <th class="px-4 py-3 text-right text-xs font-semibold text-slate-600">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($clients->isEmpty())
+                                @if ($businesses->isEmpty())
                                     <tr>
                                         <td colspan="5" class="px-4 py-6 text-center text-sm text-slate-500">
-                                            No clients found.
+                                            No Businesses found.
                                         </td>
                                     </tr>
                                 @else
-                                    @foreach ($clients as $client)
+                                    @foreach ($businesses as $business)
                                         <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
 
-                                            <!-- Client Name -->
+                                            <!-- business Name -->
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center gap-3">
                                                     <div
                                                         class="h-10 w-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm">
-                                                        {{ $client->client_name ? substr($client->client_name, 0, 1) : '-' }}
+                                                        {{ $business->business_name ? substr($business->business_name, 0, 1) : '-' }}
                                                     </div>
                                                     <p class="text-sm font-semibold text-slate-900">
-                                                        {{ $client->client_name ?? '---' }}
+                                                        {{ $business->business_name ?? '---' }}
                                                     </p>
                                                 </div>
                                             </td>
 
                                             <!-- Email -->
                                             <td class="px-4 py-3 text-sm text-slate-600">
-                                                {{ $client->client_email ?? '---' }}
+                                                {{ $business->business_email ?? '---' }}
                                             </td>
 
                                             <!-- Total Invoices (placeholder if not implemented yet) -->
                                             <td class="px-4 py-3 text-sm text-slate-900">
-                                                {{ $client->invoices_count ?? '---' }}
+                                                {{ $business->invoices_count ?? '---' }}
                                             </td>
 
                                             <!-- Total Billed (placeholder if not implemented yet) -->
-                                            <td class="px-4 py-3 text-sm font-semibold text-slate-900">
-                                                {{ $client->invoices->first()->currency ?? '---' }}
-                                                {{ isset($client->total_billed) ? number_format($client->total_billed, 2) : '---' }}
+                                           <td class="px-4 py-3 text-sm font-semibold text-slate-900">
+                                                {{ $business->invoices->first()->currency ?? '---' }}
+                                                {{ number_format($business->invoices_sum_total ?? 0, 2) }}
                                             </td>
 
 
@@ -91,7 +91,7 @@
 
                         </table>
                         <div class="mt-6">
-                            {{ $clients->links() }}
+                            {{ $businesses->links() }}
                         </div>
 
                     </div>
@@ -100,5 +100,5 @@
         </div>
     </div>
 
-    @include('popups.add-client')
+    {{-- @include('popups.add-business') --}}
 </x-app-layout>

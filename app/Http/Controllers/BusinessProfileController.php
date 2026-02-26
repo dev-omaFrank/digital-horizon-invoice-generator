@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBusinessProfileRequest;
 use App\Models\BusinessModel;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BusinessProfileController extends Controller
 {
+    public function loadPage()
+    {
+        $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
+        return view('pages.settings', compact('userInitials'));
+
+    }
+    
     public function createBusiness(StoreBusinessProfileRequest $request)
     {
        $data = $request->validated();
@@ -35,5 +41,18 @@ class BusinessProfileController extends Controller
             'message' => 'You have successfully created a business profile for ' . $data['businessName']
         ]);
 
+    }
+
+    public function showBusinessProfile()
+    {
+        $user = Auth::user();
+        $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
+        $businesses = $user->businesses()
+            ->withCount('invoices')
+            ->withSum('invoices', 'total')
+            ->with(['invoices:id,business_id,currency'])
+            ->paginate(10);
+        return view('pages.business-profile', compact('businesses', 'userInitials'));
     }
 }

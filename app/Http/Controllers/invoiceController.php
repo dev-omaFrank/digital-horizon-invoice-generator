@@ -6,10 +6,9 @@ use App\Http\Requests\InvoiceRequest;
 use App\Models\BusinessModel;
 use App\Models\ClientModel;
 use App\Models\Invoice;
-use Barryvdh\DomPDF\Facade\PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Spatie\Browsershot\Browsershot;
@@ -97,11 +96,13 @@ class invoiceController extends Controller
     }
     
     public function fetchInvoices(){
+        $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
         $invoices = Invoice::with(['business', 'client'])
             ->latest()
             ->paginate(10);
 
-        return view('pages.invoices', compact('invoices'));
+        return view('pages.invoices', compact('invoices', 'userInitials'));
     }
 
     public function show(Invoice $invoice){

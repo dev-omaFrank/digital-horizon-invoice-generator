@@ -17,7 +17,7 @@
                     <button
                         @click="open = !open"
                         class="w-14 h-14 rounded-full bg-primary text-white text-xl font-semibold flex items-center justify-center focus:outline-none">
-                        AF
+                        {{ $userInitials }}
                     </button>
 
                     <!-- Dropdown -->

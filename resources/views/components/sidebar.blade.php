@@ -1,4 +1,4 @@
-<aside class="w-64 h-full bg-white border-r border-slate-200 md:flex flex-col">
+<aside class="w-64 h-full bg-white border-r border-slate-200 md:flex md:flex-col flex flex-col mt-4 md:mt-0" style="margin-top: 50px">
     <nav class="flex-1 p-6 space-y-2">
         <a href="/dashboard" class="block px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors font-medium">
             <svg class="inline-block h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -18,15 +18,24 @@
             </svg>
             Clients
         </a>
-        <a href="/settings" class="block px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors font-medium">
+        <a href="/business-profile-settings" class="block px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors font-medium">
             <svg class="inline-block h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.592c.55 0 1.02.398 1.11.94m-.213 9.526c.106.606.481 1.1.9 1.1.419 0 .793-.494.899-1.1m0-9.526c.106-.606.481-1.1.9-1.1.419 0 .793.494.899 1.1M9 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
             Business Profile
         </a>
+        <a href="/business-profile" class="block px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors font-medium">
+            <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+            fill="currentColor" viewBox="0 0 24 24" >
+            <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+            <path d="M20 6h-4V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v17c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V8c0-1.1-.9-2-2-2m0 14H4V4h10v3c0 .55.45 1 1 1h5z"></path><path d="M10 6h2v2h-2zM6 6h2v2H6zm0 4h2v2H6zm4 0h2v2h-2zm6 0h2v2h-2zm-6 4h2v2h-2zm-4 0h2v2H6zm10 0h2v2h-2z"></path>
+            </svg>
+            My Businesses
+        </a>
     </nav>
 
-    <div class="p-6 border-t border-slate-200 mt-auto">
+    <!-- Profile at bottom -->
+    <div class="mt-auto p-6 border-t border-slate-200">
         <div class="flex items-center gap-3">
             <div class="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">AF</div>
             <div>
