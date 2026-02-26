@@ -68,31 +68,32 @@
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach([
-                            ['INV-001', 'Acme Corp', '$2,500.00', 'Oct 24, 2023', 'Paid', 'emerald'],
-                            ['INV-002', 'Global Tech', '$1,200.00', 'Oct 22, 2023', 'Pending', 'amber'],
-                            ['INV-003', 'Stellar Design', '$850.00', 'Oct 20, 2023', 'Overdue', 'red'],
-                            ['INV-004', 'Urban Apps', '$3,100.00', 'Oct 18, 2023', 'Paid', 'emerald'],
-                            ['INV-005', 'Nexus Ltd', '$1,500.00', 'Oct 15, 2023', 'Paid', 'emerald']
-                            ] as $invoice)
-                            <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
-                                <td class="px-4 py-3 text-sm font-semibold text-primary">{{ $invoice[0] }}</td>
-                                <td class="px-4 py-3 text-sm text-slate-900">{{ $invoice[1] }}</td>
-                                <td class="px-4 py-3 text-sm font-semibold text-slate-900">{{ $invoice[2] }}</td>
-                                <td class="px-4 py-3 text-sm text-slate-600">{{ $invoice[3] }}</td>
-                                <td class="px-4 py-3 text-sm">
-                                    <span class="px-3 py-1 rounded-full text-xs font-semibold 
-                                    @if($invoice[4] === 'Paid') bg-blue-50 text-emerald-700
-                                    @elseif($invoice[4] === 'Pending') bg-amber-50 text-amber-700
+                         <tbody>
+                                @foreach($invoices as $invoice)
+                                <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+                                    <td class="px-4 py-3 text-sm font-semibold text-primary">{{ $invoice->invoice_number }}</td>
+                                    <td class="px-4 py-3 text-sm text-slate-900">{{ $invoice->client->client_name }}</td>
+                                    <td class="px-4 py-3 text-sm font-semibold text-slate-900">{{ $invoice->total }}</td>
+                                    <td class="px-4 py-3 text-sm text-slate-600">{{ $invoice->issue_date }}</td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold 
+                                    @if($invoice->status === 'Paid') bg-emerald-50 text-emerald-700
+                                    @elseif($invoice->status === 'Sent') bg-amber-50 text-amber-700
                                     @else bg-red-50 text-red-700
                                     @endif">
-                                        {{ $invoice[4] }}
-                                    </span>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                                            {{ Illuminate\Support\Str::of($invoice->status)->upper() }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        <button class="text-slate-400 hover:text-slate-600 transition-colors">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
                     </table>
                 </div>
             </div>

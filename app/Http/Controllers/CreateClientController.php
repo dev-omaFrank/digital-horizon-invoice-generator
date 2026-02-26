@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientProfileRequest;
 use App\Models\ClientModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class CreateClientController extends Controller
 {
     public function fetchClients()
     {
-        $clients = ClientModel::latest()->paginate(10);
+        $clients = ClientModel::withCount('invoices')
+            ->withSum('invoices as total_billed', 'total')
+            ->with(['invoices' => function($query){
+                $query->latest()->select('id', 'client_id', 'currency');
+            }])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
         return view('pages.clients', ['clients' => $clients]);
     }

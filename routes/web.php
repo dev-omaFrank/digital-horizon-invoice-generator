@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\CreateClientController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -11,19 +12,35 @@ Route::get('/', function () {
     return view('pages.index');
 });
 
+Route::get('/invoices/{invoice}/pdf-view', [InvoiceController::class, 'pdfView'])
+    ->name('invoices.pdf.view')
+    ->middleware('signed'); 
+
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::view('/dashboard', 'pages.dashboard')->name('pages.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'fetchInvoices'])->name('pages.dashboard');
+
     Route::get('/clients', [CreateClientController::class, 'fetchClients']);
-    Route::view('/invoices', 'pages.invoices');
+
+    Route::get('/invoices', [invoiceController::class, 'fetchInvoices'])->name('invoices.index');
+
+    Route::get('/invoices/show-invoice-{invoice}', [invoiceController::class, 'show'])->name('invoices.show');
+
     Route::get('/invoices/create', [invoiceController::class, 'getClientsAndBusinesses']);
+
+    Route::get('/invoices/invoice-{invoice}/pdf', [invoiceController::class, 'downloadInvoicePdf'])->name('invoices.pdf');
+    
     Route::view('/settings', 'pages.settings');
 });
 
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/business/create-business-profile', [BusinessProfileController::class, 'createBusiness']);
+
     Route::post('/client/create-client', [CreateClientController::class, 'createClient']);
-    Route::post('/invoices/create', [invoiceController::class, 'createInvoice']);
+
+    Route::post('/invoices/create', [invoiceController::class, 'createInvoice'])->name('invoices.create');
+
+    Route::patch('/invoices/update-invoice-{invoice}', [invoiceController::class, 'updateInvoice'])->name('invoices.update');
 
 });
 

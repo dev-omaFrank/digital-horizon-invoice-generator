@@ -17,4 +17,8 @@ class ClientModel extends Model
         'client_phone_no',
         'client_address',
     ];
+
+    public function invoices(){
+        return $this->hasMany(Invoice::class, 'client_id');
+    }
 }

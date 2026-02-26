@@ -10,9 +10,18 @@
                 <h1 class="text-2xl font-bold text-slate-900">Create Invoice</h1>
             </div>
 
-            <form action="" method="POST" class="space-y-6">
+            <form action="{{ route('invoices.create') }}" method="post" class="space-y-6">
                 @csrf
-
+                {{-- GLOBAL ERROR BLOCK --}}
+                @if ($errors->any())
+                    <div class="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg">
+                        <ul class="text-red-600 text-sm space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>• {{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                     <!-- LEFT SIDE -->
@@ -56,7 +65,7 @@
 
                                 <div>
                                     <label class="input-label">Invoice Number</label>
-                                    <input type="text" name="invoice_number" class="input-field" value="INV-008" required>
+                                    <input type="text" name="invoice_number" class="input-field" value="INV-001" required>
                                 </div>
 
                                 <div>
@@ -126,7 +135,7 @@
                                                         :name="`items[${index}][price]`"
                                                         x-model.number="item.price"
                                                         class="input-field text-right"
-                                                        step="0.01"
+                                                        step="1"
                                                         min="0"
                                                         required>
                                                 </td>
@@ -166,6 +175,9 @@
                                     <span class="text-slate-500">Subtotal</span>
                                     <span class="font-semibold text-slate-900"
                                         x-text="formatCurrency(getSubtotal())">NGN</span>
+                                    <input type="hidden"
+                                        name="subtotal"
+                                        :value="getSubtotal().toFixed(2)">
                                 </div>
 
                                 <div class="flex justify-between items-center text-sm">
@@ -192,6 +204,9 @@
                                     <span class="font-bold text-slate-900">Total</span>
                                     <span class="text-xl font-bold text-primary"
                                         x-text="formatCurrency(getTotal())"></span>
+                                        <input type="hidden"
+                                            name="total"
+                                            :value="getTotal().toFixed(2)">
                                 </div>
 
                             </div>
@@ -220,6 +235,7 @@
 
                 </div>
                 <input type="hidden" id="currency" name="currency" :value="currency" />
+                <input type="hidden" id="status" name="status" value="draft" />
             </form>
 
         </div>

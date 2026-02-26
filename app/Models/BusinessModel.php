@@ -12,11 +12,20 @@ class BusinessModel extends Model
    protected $table = 'businesses';
 
    protected $fillable = [
-         'user_id',
+        'user_id',
         'business_name', 
         'business_logo',
         'business_address', 
         'business_email', 
         'business_phone_no'
    ];
+
+   public function user()
+   {
+      return $this->belongsTo(User::class);
+   }
+
+   public function invoices(){
+      return $this->hasMany(Invoice::class);
+   }
 }

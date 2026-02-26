@@ -29,12 +29,6 @@ class InvoiceRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                // unique per business
-                Rule::unique('invoices')
-                    ->where(function ($query) {
-                        return $query->where('business_id', $this->business_id);
-                    })
-                    ->ignore($invoiceId),
             ],
 
             // Dates
@@ -42,13 +36,17 @@ class InvoiceRequest extends FormRequest
             'due_date' => ['required', 'date', 'after_or_equal:issue_date'],
 
             // Status
-            'status' => ['required', Rule::in(['draft','sent','paid','partial','overdue','cancelled'])],
+            'status' => ['required', Rule::in(['draft', 'sent','paid','overdue','cancelled'])],
 
-            // Monetary fields
-            'subtotal' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
-            'tax' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
-            'discount' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
-            'total' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
+             // ✅ Validate items array
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.description' => ['required', 'string', 'max:255'],
+            'items.*.quantity' => ['required', 'integer', 'min:1'],
+            'items.*.price' => ['required', 'numeric', 'min:0'],
+
+            // ✅ Tax & discount only
+            'tax' => ['required', 'numeric', 'min:0'],
+            'discount' => ['required', 'numeric', 'min:0'],
 
             // Optional currency
             'currency' => ['nullable', 'string', 'size:3'],
