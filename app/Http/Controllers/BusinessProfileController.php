@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBusinessProfileRequest;
 use App\Models\BusinessModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BusinessProfileController extends Controller
 {
@@ -27,15 +28,25 @@ class BusinessProfileController extends Controller
        }
 
 
-        BusinessModel::create([
-            'user_id' => Auth::id(),
-            'business_name' => $data['businessName'],
-            'business_logo' => $data['business_logo'],
-            'business_email' => $data['businessEmail'],
-            'business_address' => $data['businessAddress'],
-            'business_phone_no' => $data['businessPhoneNo'],
-        ]);
+        DB::transaction(function () use ($data){
+            $business = BusinessModel::create([
+                'user_id' => Auth::id(),
+                'business_name' => $data['businessName'],
+                'business_logo' => $data['business_logo'],
+                'business_email' => $data['businessEmail'],
+                'business_address' => $data['businessAddress'],
+                'business_phone_no' => $data['businessPhoneNo'],
+                'currency' => $data['currency']
+            ]);
 
+            $business->bankAccounts()->create([
+                'account_name' => $data['account_name'], 
+                'account_number' => $data['account_number'], 
+                'bank_name' => $data['bank_name'],
+                'bank_code' => $data['bank_code'] ?? null,
+            ]);
+        });
+        
         return response()->json([
             'status' => true,
             'message' => 'You have successfully created a business profile for ' . $data['businessName']

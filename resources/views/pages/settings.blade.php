@@ -33,7 +33,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-slate-900 mb-2">Business Name</label>
-                                    <input type="text" name="businessName" placeholder="Digital Horizon" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <input type="text" name="businessName" placeholder="PayMint" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
 
                                     @error('businessName')
                                         <p class="mt-1 text-sm text-red-600">
@@ -73,41 +73,74 @@ San Francisco, CA 94103"></textarea>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                
+
+
+                    <!-- Invoicing Preferences -->
+                    <div class="card" style="margin-top: 50px">
+                        <h2 class="text-xl font-bold text-slate-900 mb-6">Business Account Details</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Default Currency</label>
+                                <select class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary" name="currency">
+                                    <option value="1">NGN</option>
+                                    {{-- <option>USD ($)</option>
+                                    <option>EUR (€)</option>
+                                    <option>GBP (£)</option> --}}
+                                </select>
+
+                            </div>
+                            {{-- <div>
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Default Tax Rate (%)</label>
+                                <input type="number" name="tax-rate" value="10" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div> --}}
+                            <div class="md:col-span-2">  
+
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Bank Name</label>
+                                <input type="text" name="bank_name" id="" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+
+                                @error('bank_name')
+                                        <p class="mt-1 text-sm text-red-600">
+                                            {{ $message }}
+                                        </p>
+                                @enderror
+
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Account Name</label>
+                                <input type="text" name="account_name" id="" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+
+                                @error('account_name')
+                                    <p class="mt-1 text-sm text-red-600">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Account Number</label>
+                                <input type="text" name="account_number" id="" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+
+                                @error('account_number')
+                                    <p class="mt-1 text-sm text-red-600">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
+                                <label class="block text-sm font-medium text-slate-900 mb-2">Bank Code(Optional)</label>
+                                <input type="text" name="bank_code" id="" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
+
+                                @error('bank_code')
+                                    <p class="mt-1 text-sm text-red-600">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="mt-6 pt-6 border-t border-slate-200 flex justify-end">
                             <button type="submit" class="btn-primary">Create Business Profile</button>
                         </div>
-                    </div>
+                    </div> 
                 </form>
-
-
-                <!-- Invoicing Preferences -->
-                <!-- <div class="card">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6">Invoicing Preferences</h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-900 mb-2">Default Currency</label>
-                            <select class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
-                                <option>USD ($)</option>
-                                <option>EUR (€)</option>
-                                <option>GBP (£)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-900 mb-2">Default Tax Rate (%)</label>
-                            <input type="number" value="10" class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-slate-900 mb-2">Bank Information (Displayed on Invoice)</label>
-                            <textarea placeholder="Bank Name, Account Number, SWIFT/BIC..." class="w-full px-2 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary h-24"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-6 border-t border-slate-200 flex justify-end">
-                        <button class="btn-primary">Save Preferences</button>
-                    </div>
-                </div> -->
             </div>
 
         </div>

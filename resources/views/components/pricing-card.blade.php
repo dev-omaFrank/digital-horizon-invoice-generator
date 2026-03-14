@@ -24,7 +24,7 @@
         @endforeach
     </ul>
     
-    <a href="/register" class="block text-center {{ $featured ? 'btn-primary' : 'btn-outline' }} w-full">
+    <a href="/register" class="block text-center {{ $featured ? 'btn-primary' : 'btn-outline' }} w-full" style="width: auto;">
         {{ $cta ?? 'Get Started' }}
     </a>
 </div>

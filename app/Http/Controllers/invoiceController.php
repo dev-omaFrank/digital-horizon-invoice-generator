@@ -33,6 +33,8 @@ class invoiceController extends Controller
     public function createInvoice(InvoiceRequest $request)
     {
         $data = $request->validated();
+        // $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
 
         DB::transaction(function() use ($data){
             $year = Carbon::parse($data['issue_date'])->year();

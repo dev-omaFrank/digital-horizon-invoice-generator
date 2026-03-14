@@ -1,10 +1,10 @@
 @extends('layouts.landing')
 
-@section('title', 'Digital Horizon Invoices - Simple Invoice Generator for Freelancers')
+@section('title', 'PayMint Invoices - Simple Invoice Generator for Freelancers')
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative overflow-hidden section-spacing">
+<section class="relative overflow-hidden">
     <div class="container-max">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -12,7 +12,7 @@
                     Create professional invoices in 30 seconds
                 </h1>
                 <p class="mt-6 text-xl text-slate-600 leading-relaxed">
-                    Get paid faster with Digital Horizon. The simplest invoice generator for freelancers and small businesses.
+                    Get paid faster with PayMint. The simplest invoice generator for freelancers and small businesses.
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row gap-4">
                     <a href="/register" class="btn-primary text-center">Start Free</a>
@@ -53,7 +53,7 @@
 </section>
 
 <!-- Social Proof -->
-<!-- <section class="py-12 border-y border-slate-200">
+ <section class="py-12 border-y border-slate-200">
     <div class="container-max">
         <p class="text-center text-sm font-semibold text-slate-600 mb-8">
             Trusted by thousands of freelancers and small businesses
@@ -66,10 +66,10 @@
             @endforeach
         </div>
     </div>
-</section> -->
+</section> 
 
 <!-- Features Section -->
-<!-- <section id="features" class="section-spacing">
+<section id="features" class="section-spacing">
     <div class="container-max">
         <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
@@ -118,10 +118,10 @@
             ])
         </div>
     </div>
-</section> -->
+</section> 
 
 <!-- How It Works -->
-<!-- <section class="section-spacing bg-slate-50">
+ <section class="section-spacing bg-slate-50">
     <div class="container-max">
         <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
@@ -146,10 +146,10 @@
             @endforeach
         </div>
     </div>
-</section> -->
+</section>
 
 <!-- Pricing Section -->
-<!-- <section id="pricing" class="section-spacing">
+<section id="pricing" class="section-spacing">
     <div class="container-max">
         <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
@@ -180,10 +180,10 @@
             ])
         </div>
     </div>
-</section> -->
+</section> 
 
 <!-- Testimonials -->
-<!-- <section class="section-spacing bg-slate-50">
+ <section class="section-spacing bg-slate-50">
     <div class="container-max">
         <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
@@ -193,7 +193,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach([
-                ['SC', 'Sarah Chen', 'Freelance Designer', 'Digital Horizon cut my invoicing time in half. I can focus on design instead of admin work.'],
+                ['SC', 'Sarah Chen', 'Freelance Designer', 'PayMint cut my invoicing time in half. I can focus on design instead of admin work.'],
                 ['MR', 'Marcus Rodriguez', 'Solo Founder', 'The payment tracking feature alone is worth it. No more chasing clients for payment status.'],
                 ['ET', 'Emma Thompson', 'Creative Director', 'Professional, simple, and actually enjoyable to use. Highly recommended for freelancers.']
             ] as $testimonial)
@@ -212,10 +212,10 @@
             @endforeach
         </div>
     </div>
-</section> -->
+</section>
 
 <!-- FAQ Section -->
-<!-- <section id="faq" class="section-spacing">
+ <section id="faq" class="section-spacing">
     <div class="max-w-3xl mx-auto container-max">
         <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
@@ -250,10 +250,10 @@
             ])
         </div>
     </div>
-</section> -->
+</section> 
 
 <!-- Final CTA -->
-<!-- <section class="section-spacing bg-gradient-to-r from-primary/5 to-primary/10">
+<section class="section-spacing bg-gradient-to-r from-primary/5 to-primary/10">
     <div class="max-w-4xl mx-auto container-max text-center">
         <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
             Ready to get paid faster?
@@ -263,5 +263,5 @@
         </p>
         <a href="/register" class="btn-primary inline-block">Start Free Today</a>
     </div>
-</section> -->
+</section> 
 @endsection

@@ -24,7 +24,7 @@ class BusinessSeeder extends Seeder
         // Create businesses linked to that user
         BusinessModel::create([
             'user_id' => $user->id,
-            'business_name' => 'Digital Horizon',
+            'business_name' => 'PayMint',
             'business_email' => 'info@digitalhorizon.com',
             'business_address' => '123 Tech Street, Lagos',
             'business_phone_no' => '08012345678',

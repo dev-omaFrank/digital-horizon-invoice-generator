@@ -11,10 +11,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invoices', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable()->after('id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-        });
+        if (!Schema::hasTable('invoices')) {
+            return;
+        }
+
+        if (!Schema::hasColumn('invoices', 'user_id')) {
+
+            Schema::table('invoices', function (Blueprint $table) {
+                $table->foreignId('user_id')->nullable()->after('id');
+            });
+
+            Schema::table('invoices', function (Blueprint $table) {
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->nullOnDelete();
+            });
+        }
     }
 
     /**

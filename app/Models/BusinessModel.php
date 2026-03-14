@@ -13,6 +13,7 @@ class BusinessModel extends Model
 
    protected $fillable = [
         'user_id',
+        'currency',
         'business_name', 
         'business_logo',
         'business_address', 
@@ -27,5 +28,9 @@ class BusinessModel extends Model
 
    public function invoices(){
       return $this->hasMany(Invoice::class, 'business_id');
+   }
+
+   public function bankAccounts(){
+      return $this->hasMany(BusinessBankAccount::class, 'business_id');
    }
 }

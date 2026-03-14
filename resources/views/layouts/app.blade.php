@@ -13,6 +13,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+             a{
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen">
