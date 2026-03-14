@@ -13,5 +13,4 @@ window.formatCurrency = (amount) => {
   }).format(amount)
 }
 
-// image preview
-alert('juice')
+
