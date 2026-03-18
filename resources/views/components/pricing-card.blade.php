@@ -9,7 +9,7 @@
     <p class="text-slate-600 mb-6">{{ $description }}</p>
     
     <div class="mb-6">
-        <span class="text-4xl font-bold text-slate-900">${{ $price }}</span>
+        <span class="text-4xl font-bold text-slate-900">₦{{ $price }}</span>
         <span class="text-slate-600 ml-2">/month</span>
     </div>
     

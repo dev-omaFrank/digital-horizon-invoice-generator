@@ -166,17 +166,17 @@
                 'description' => 'Perfect for getting started',
                 'price' => '0',
                 'featured' => false,
-                'features' => ['Up to 10 invoices/month', 'Basic templates', 'Email support', 'PDF export'],
+                'features' => ['Up to 5 invoices/month', 'Watermark', 'Manual Status tracking'],
                 'cta' => 'Get Started'
             ])
 
             @include('components.pricing-card', [
                 'name' => 'Pro',
                 'description' => 'For growing businesses',
-                'price' => '29',
+                'price' => '1500',
                 'featured' => true,
-                'features' => ['Unlimited invoices', 'Premium templates', 'Payment tracking', 'Online payments', 'Priority support'],
-                'cta' => 'Start Free Trial'
+                'features' => ['Unlimited invoices', 'No Watermark', 'Payment tracking', 'Online payments', 'Priority support'],
+                'cta' => 'Go Pro Now'
             ])
         </div>
     </div>
