@@ -47,10 +47,10 @@ class BusinessProfileController extends Controller
             ]);
         });
         
-        return response()->json([
-            'status' => true,
-            'message' => 'You have successfully created a business profile for ' . $data['businessName']
-        ]);
+        return redirect()->back()->with(
+            'success',
+            'You have successfully created a business profile for ' . $data['businessName']
+        );
 
     }
 
