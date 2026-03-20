@@ -18,7 +18,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                     </div>
-                    <span class="text-2xl font-bold text-slate-900">Digital Horizon</span>
+                    <span class="text-2xl font-bold text-slate-900">PayMint</span>
                 </div>
                 <h1 class="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h1>
                 <p class="text-slate-600">Sign in to your account to continue</p>
