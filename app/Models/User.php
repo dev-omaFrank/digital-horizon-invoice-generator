@@ -53,10 +53,6 @@ class User extends Authenticatable
         return $this->hasMany(BusinessModel::class);
     }
 
-    // Source - https://stackoverflow.com/a/67111758
-    // Posted by Stevie B, modified by community. See post 'Timeline' for change history
-    // Retrieved 2026-02-26, License - CC BY-SA 4.0
-
     public function getNameInitials(): string
     {
         $name = $this->name;

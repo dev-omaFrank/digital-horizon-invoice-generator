@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\ValidationException;
 use Spatie\Browsershot\Browsershot;
 
 class invoiceController extends Controller
@@ -27,16 +28,16 @@ class invoiceController extends Controller
         ->select('id', 'business_name', 'business_email')
         ->get();
 
-        return view('invoices.create', compact('clients', 'businesses'));
+        $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
+
+        return view('invoices.create', compact('clients', 'businesses', 'userInitials'));
     }
 
     public function createInvoice(InvoiceRequest $request)
     {
         $data = $request->validated();
-        // $userInitials = Auth::user()->getNameInitials(); //getnameInitials is defined in User model.
-
-
-        DB::transaction(function() use ($data){
+       
+        $invoice =  DB::transaction(function() use ($data){
             $year = Carbon::parse($data['issue_date'])->year();
 
             //format inv number
@@ -55,7 +56,7 @@ class invoiceController extends Controller
 
             $formattedSequence = str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
-            $invoiceNumber = "INV-{$year}-{$formattedSequence}";
+            $invoiceNumber = "INV-{$formattedSequence}";
 
             //calculate monetary values
             $subtotal = collect($data['items'])->sum(function($item){
@@ -68,9 +69,9 @@ class invoiceController extends Controller
 
             if($total < 0)
             {
-                return back()->withErrors([
+                throw ValidationException::withMessages([
                     'discount' => 'Discount cannot exceed invoice total.'
-                ])->withInput();
+                ]);
             }
 
             $invoice = Invoice::create([
@@ -88,12 +89,15 @@ class invoiceController extends Controller
                     'total' => round($item['quantity'] * $item['price'], 2),
                 ]);
             }
-        
-            return response()->json([
-                'status' => true,
-                'message' => 'Invoice created successfully.'
-            ]);
+
+            return $invoice;
         });
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Invoice created successfully.',
+            'data' => $invoice
+        ]);
 
     }
     
@@ -108,7 +112,7 @@ class invoiceController extends Controller
     }
 
     public function show(Invoice $invoice){
-        $invoice->load(['business', 'client', 'items']);
+        $invoice->load(['business.bankAccounts', 'client', 'items']);
 
         return view('/invoices/show', compact('invoice'));
     }

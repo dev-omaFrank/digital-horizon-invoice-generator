@@ -31,6 +31,6 @@ class BusinessModel extends Model
    }
 
    public function bankAccounts(){
-      return $this->hasMany(BusinessBankAccount::class, 'business_id');
+      return $this->hasOne(BusinessBankAccount::class, 'business_id');
    }
 }

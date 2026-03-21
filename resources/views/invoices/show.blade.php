@@ -29,8 +29,8 @@
                     @elseif($invoice->status === 'draft') bg-gray-100 text-gray-700
                     @elseif($invoice->status === 'overdue') bg-red-100 text-red-700
                     @else bg-yellow-100 text-yellow-700
-                    @endif">
-                    {{ ucfirst($invoice->status) }}
+                    @endif" style="font-weight: bolder">
+                    {{ Str::upper($invoice->status) }}
                 </span>
         </div>
 
@@ -40,6 +40,8 @@
                 <h2 class="text-sm font-semibold text-slate-500 mb-2">From</h2>
                 <p class="font-bold text-slate-900">{{$invoice->business->business_name}}</p>
                 <p class="text-sm text-slate-600">{{ $invoice->business->business_email }}</p>
+                <span class="text-sm text-slate-600">{{ $invoice->business->bankAccounts->account_name }}</span> | <span class="text-sm text-slate-600">{{ $invoice->business->bankAccounts->bank_name }}</span> | <span class="text-sm text-slate-600">{{ $invoice->business->bankAccounts->account_number }}</span>
+                
             </div>
 
             <div class="p-6 border rounded shadow-sm">
