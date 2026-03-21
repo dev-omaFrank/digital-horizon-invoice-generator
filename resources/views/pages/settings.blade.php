@@ -90,7 +90,7 @@
                             <div>
                                 <label @class(['block', 'text-sm', 'font-medium', 'text-slate-900', 'mb-2'])>Default Currency</label>
                                 <select name="currency" @class(['w-full', 'px-2', 'py-2', 'rounded-lg', 'border', 'border-slate-200', 'focus:outline-none', 'focus:ring-2', 'focus:ring-primary'])>
-                                    <option value="1" {{ old('currency') == 1 ? 'selected' : '' }}>NGN</option>
+                                    <option value="NGN" {{ old('currency') == 'NGN' ? 'selected' : '' }}>NGN</option>
                                 </select>
                             </div>
 

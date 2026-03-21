@@ -32,7 +32,7 @@ class BusinessProfileController extends Controller
             $business = BusinessModel::create([
                 'user_id' => Auth::id(),
                 'business_name' => $data['businessName'],
-                'business_logo' => $data['business_logo'],
+                'business_logo' => $data['business_logo'] ?? null,
                 'business_email' => $data['businessEmail'],
                 'business_address' => $data['businessAddress'],
                 'business_phone_no' => $data['businessPhoneNo'],
@@ -49,7 +49,7 @@ class BusinessProfileController extends Controller
         
         return redirect()->back()->with(
             'success',
-            'You have successfully created a business profile for ' . $data['businessName']
+            'You have successfully created a business profile for ' . $data['businessName'] . ' . Go to the My Businesses to manage businesses'
         );
 
     }

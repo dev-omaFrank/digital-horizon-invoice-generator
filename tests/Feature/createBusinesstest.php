@@ -19,7 +19,7 @@ class CreateBusinessTest extends TestCase
             'businessEmail' => 'test@example.com',
             'businessPhoneNo' => '1234567890',
             'businessAddress' => 'Test Address',
-            'currency' => 1,
+            'currency' => 'NGN',
             'bank_name' => 'Test Bank',
             'account_name' => 'John Doe',
             'account_number' => '12345678',
@@ -28,7 +28,7 @@ class CreateBusinessTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHas('success');
 
-        $this->assertDatabaseHas('business_models', [
+        $this->assertDatabaseHas('businesses', [
             'business_name' => 'Test Biz',
         ]);
     }

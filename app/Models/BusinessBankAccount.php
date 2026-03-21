@@ -10,6 +10,13 @@ class BusinessBankAccount extends Model
         'account_number' => 'encrypted'
     ];
 
+    protected $fillable = [
+        'account_name',
+        'account_number',
+        'bank_name',
+        'bank_code',
+    ];
+
 
     public function business(){
         return $this->belongsTo(BusinessModel::class);
