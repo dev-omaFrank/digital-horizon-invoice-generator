@@ -31,6 +31,7 @@ class CreateClientController extends Controller
         $data = $request->validated();
 
         ClientModel::create([
+            'user_id' => auth()->id(),
             'client_name' => $data['clientName'],
             'client_email' => $data['clientEmail'],
             'client_address' => $data['clientAddress'],
