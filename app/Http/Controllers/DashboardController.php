@@ -30,6 +30,7 @@ class DashboardController extends Controller
         //     ->value('avg_days');
 
         $invoices = Invoice::with(['business', 'client'])
+            ->where('user_id', auth()->id())
             ->latest()
             ->paginate(10);
 
