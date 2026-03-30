@@ -42,7 +42,7 @@
                             </div>
                             <div class="border-t border-slate-200 pt-4 flex justify-between">
                                 <span class="font-semibold text-slate-900">Total</span>
-                                <span class="text-2xl font-bold text-primary">NGN25,00.00</span>
+                                <span class="text-2xl font-bold text-primary">NGN25,000.00</span>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
             @include('components.pricing-card', [
                 'name' => 'Pro',
                 'description' => 'For growing businesses',
-                'price' => '1500',
+                'price' => '2500',
                 'featured' => true,
                 'features' => ['Unlimited invoices', 'No Watermark', 'Payment tracking', 'Online payments', 'Priority support'],
                 'cta' => 'Go Pro Now'

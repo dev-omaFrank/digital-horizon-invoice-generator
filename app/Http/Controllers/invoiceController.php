@@ -95,8 +95,8 @@ class invoiceController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Invoice created successfully.',
-            'data' => $invoice
+            'message' => 'Invoice created successfully.'
+            // 'data' => $invoice
         ]);
 
     }
@@ -114,7 +114,7 @@ class invoiceController extends Controller
     public function show(Invoice $invoice){
         $invoice->load(['business.bankAccounts', 'client', 'items']);
 
-        return view('/invoices/show', compact('invoice'));
+        return view('invoices.show', compact('invoice'));
     }
 
     public function updateInvoice(Invoice $invoice, Request $request){
