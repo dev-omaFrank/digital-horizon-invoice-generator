@@ -18,14 +18,19 @@ class checkFreeLimit
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Invoice::count() == 3) {
+        if ($request->is('billing/upgrade')) {
+            return $next($request);
+        }
+
+        $userId = auth()->id();
+
+        if (
+            Invoice::where('user_id', $userId)->count() >= 3 ||
+            BusinessModel::where('user_id', $userId)->count() >= 3
+        ) {
             return redirect('billing/upgrade');
         }
 
-        if (BusinessModel::count() == 3){
-            return redirect('billing/upgrade');
-        }
-        
         return $next($request);
     }
 }

@@ -168,7 +168,7 @@
                                     required 
                                     class="payment-input w-full px-4 py-3 rounded-lg border border-slate-300 outline-none placeholder-slate-400"
                                     placeholder="you@example.com"
-                                    disabled
+                                    readonly
                                 >
                             </div>
 
