@@ -29,7 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/invoices/show-invoice-{invoice}', [invoiceController::class, 'show'])->name('invoices.show');
 
-    Route::get('/invoices/create', [invoiceController::class, 'getClientsAndBusinesses'])->name('invoices.create')->middleware(checkFreeLimit::class);
+    Route::get('/invoices/create', [invoiceController::class, 'getClientsAndBusinesses'])->name('invoices.create.get')->middleware(checkFreeLimit::class);
 
     Route::get('/invoices/invoice-{invoice}/pdf', [invoiceController::class, 'downloadInvoicePdf'])->name('invoices.pdf');
     
@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::post('/client/create-client', [CreateClientController::class, 'createClient'])->middleware(checkFreeLimit::class);
 
-    Route::post('/invoices/create', [invoiceController::class, 'createInvoice'])->name('invoices.create');
+    Route::post('/invoices/create', [invoiceController::class, 'createInvoice'])->name('invoices.create.post');
 
     Route::patch('/invoices/update-invoice-{invoice}', [invoiceController::class, 'updateInvoice'])->name('invoices.update');
 
