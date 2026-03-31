@@ -25,11 +25,7 @@ class checkFreeLimit
         if (BusinessModel::count() == 3){
             return redirect('billing/upgrade');
         }
-
-        if(ClientModel::count() == 3)
-        {
-            return redirect('billing/upgrade');
-        }
+        
         return $next($request);
     }
 }
