@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Models\BusinessModel;
-use App\Models\ClientModel;
 use App\Models\Invoice;
+use App\Models\Subscription;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +24,17 @@ class checkFreeLimit
 
         $userId = auth()->id();
 
+        $noActiveSubscription = Subscription::where('user_id', $userId)
+            ->where('status', 'active')
+            ->exists();
+
+        $invoiceLimitReached = Invoice::where('user_id', $userId)->count() >= 3;
+
+        $businessLimitReached = BusinessModel::where('user_id', $userId)->count() >= 3;
+
         if (
-            Invoice::where('user_id', $userId)->count() >= 3 ||
-            BusinessModel::where('user_id', $userId)->count() >= 3
+            !$noActiveSubscription &&
+            ($invoiceLimitReached || $businessLimitReached)
         ) {
             return redirect('billing/upgrade');
         }
