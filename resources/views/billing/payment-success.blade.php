@@ -208,7 +208,7 @@
                     Go to Dashboard
                 </a>
                 <a 
-                    href="{{ route('invoices.create') }}" 
+                    href="{{ route('invoices.create.get') }}" 
                     class="py-3 px-6 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors duration-200 text-center block"
                 >
                     Create Invoice
