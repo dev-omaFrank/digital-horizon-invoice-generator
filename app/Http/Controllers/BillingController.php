@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class BillingController extends Controller
 {
-    public function __construct(protected PaystackService $paystack){}
+    public function __construct(protected PaystackService $paystack) {}
 
     public function loadBillingPage()
-    {   
+    {
         $invoices = Invoice::with(['business', 'client'])
             ->whereHas('business', function ($q) {
                 $q->where('user_id', auth()->id());
@@ -28,7 +28,7 @@ class BillingController extends Controller
         $validated = $request->validate([
             'email' => ['required', 'email'],
             'amount' => ['required', 'numeric', 'min:2000'],
-            'cardholder_name' => ['required', 'string']
+            'cardholder_name' => ['required', 'string'],
         ]);
 
         $reference = uniqid('pay_');
@@ -38,11 +38,23 @@ class BillingController extends Controller
             'amount' => $validated['amount'] * 100, // Kobo to naira
             'reference' => $reference,
             'first_name' => $validated['cardholder_name'],
+            'last_name' => '',
             'plan' => 'PLN_gkr6p0djrhmtrcz',
             'callback_url' => route('payments.callback'),
+            
+            'metadata' => [
+                'cardholder_name' => $validated['cardholder_name'],
+                'custom_fields' => [
+                    [
+                        'display_name' => 'Cardholder Name',
+                        'variable_name' => 'cardholder_name',
+                        'value' => $validated['cardholder_name'],
+                    ],
+                ],
+            ],
         ]);
 
-        if (!$response['status']) {
+        if (! $response['status']) {
             return back()->withErrors('Unable to initialize payment');
         }
 
@@ -53,14 +65,13 @@ class BillingController extends Controller
     {
         $reference = $request->query('reference');
 
-        if(!$reference){
+        if (! $reference) {
             return redirect()->route('payments.failed');
         }
 
         $response = $this->paystack->verifyTransaction($reference);
 
-        if(!$response['status'] || $response['data']['status'] !== 'success')
-        {
+        if (! $response['status'] || $response['data']['status'] !== 'success') {
             return redirect()->route('payments.failed');
         }
 
@@ -69,12 +80,11 @@ class BillingController extends Controller
 
     public function webHook(Request $request)
     {
-        
+
         $signature = $request->header('x-paystack-signature');
         $payload = $request->getContent();
 
-        if ($signature !== hash_hmac('sha512', $payload, config('services.paystack.secret_key')))
-        {
+        if ($signature !== hash_hmac('sha512', $payload, config('services.paystack.secret_key'))) {
             abort('403', 'Invalid Signature');
         }
 

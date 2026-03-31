@@ -16,7 +16,6 @@ return new class extends Migration
                 $table->id();
 
                 $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-                $table->foreignId('subscription_id')->constrained()->cascadeOnDelete();
 
                 $table->integer('amount'); // kobo
                 $table->string('currency')->default('NGN');
@@ -24,8 +23,11 @@ return new class extends Migration
                 $table->string('status'); // success, failed
 
                 $table->string('paystack_reference')->unique();
-                $table->string('paystack_transaction_id')->nullable();
+                $table->unique('paystack_transaction_id')->nullable();
                 $table->string('paystack_event')->nullable();
+                $table->string('paystack_customer_code')->nullable();
+                $table->unique('paystack_subscription_code')->nullable();
+                $table->string('paystack_plan_code')->nullable();
 
                 $table->string('channel')->nullable();
                 $table->integer('fees')->nullable();

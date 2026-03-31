@@ -15,6 +15,8 @@ class Subscription extends Model
         'next_billing_date',
         'last_payment_date',
         'paystack_subscription_code',
+        'paystack_customer_code',
+        'paystack_plan_code',
         'paystack_email_token',
         'canceled_at',
     ];

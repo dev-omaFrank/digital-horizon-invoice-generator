@@ -64,4 +64,9 @@ class User extends Authenticatable
         return mb_substr($firstWord[0],0,1)."".mb_substr($lastWord[0],0,1);
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
 }
