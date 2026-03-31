@@ -54,7 +54,7 @@ class BillingController extends Controller
             ],
         ]);
 
-        if (! $response['status']) {
+        if (!$response['status']) {
             return back()->withErrors('Unable to initialize payment');
         }
 
@@ -65,13 +65,13 @@ class BillingController extends Controller
     {
         $reference = $request->query('reference');
 
-        if (! $reference) {
+        if (!$reference) {
             return redirect()->route('payments.failed');
         }
 
         $response = $this->paystack->verifyTransaction($reference);
 
-        if (! $response['status'] || $response['data']['status'] !== 'success') {
+        if (!$response['status'] || $response['data']['status'] !== 'success') {
             return redirect()->route('payments.failed');
         }
 
