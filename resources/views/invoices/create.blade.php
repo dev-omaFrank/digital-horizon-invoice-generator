@@ -10,7 +10,7 @@
                 <h1 class="text-2xl font-bold text-slate-900">Create Invoice</h1>
             </div>
 
-            <form action="{{ route('invoices.create') }}" method="post" class="space-y-6">
+            <form action="{{ route('invoices.create.post') }}" method="post" class="space-y-6">
                 @csrf
                 {{-- GLOBAL ERROR BLOCK --}}
                 @if ($errors->any())
