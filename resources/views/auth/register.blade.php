@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Digital Horizon Invoices</title>
+    <title>Sign Up - Ledgerly Invoices</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-slate-100">
@@ -18,7 +18,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                     </div>
-                    <span class="text-2xl font-bold text-slate-900">PayMintp</span>
+                    <span class="text-2xl font-bold text-slate-900">Ledgerlyp</span>
                 </div>
                 <h1 class="text-3xl font-bold text-slate-900 mb-2">Create Account</h1>
                 <p class="text-slate-600">Join thousands of freelancers getting paid faster</p>

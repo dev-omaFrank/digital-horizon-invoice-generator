@@ -8,7 +8,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                     </div>
-                    <span class="text-white font-bold">PayMint</span>
+                    <span class="text-white font-bold">Ledgerly</span>
                 </div>
                 <p class="text-sm">Simple invoicing for freelancers.</p>
             </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between">
-            <p class="text-sm">© 2026 PayMint. All rights reserved.</p>
+            <p class="text-sm">© 2026 Ledgerly. All rights reserved.</p>
             <div class="flex gap-6 mt-4 sm:mt-0">
                 <a href="#" class="hover:text-white transition-colors">Twitter</a>
                 <a href="#" class="hover:text-white transition-colors">LinkedIn</a>

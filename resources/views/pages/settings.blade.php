@@ -47,7 +47,7 @@
 
                                 <div @class(['md:col-span-2'])>
                                     <label @class(['block', 'text-sm', 'font-medium', 'text-slate-900', 'mb-2'])>Business Name</label>
-                                    <input type="text" name="businessName" value="{{ old('businessName') }}" placeholder="PayMint" @class(['w-full', 'px-2', 'py-2', 'rounded-lg', 'border', 'border-slate-200', 'focus:outline-none', 'focus:ring-2', 'focus:ring-primary'])>
+                                    <input type="text" name="businessName" value="{{ old('businessName') }}" placeholder="Ledgerly" @class(['w-full', 'px-2', 'py-2', 'rounded-lg', 'border', 'border-slate-200', 'focus:outline-none', 'focus:ring-2', 'focus:ring-primary'])>
                                     @error('businessName')
                                         <p @class(['mt-1', 'text-sm', 'text-red-600'])>{{ $message }}</p>
                                     @enderror

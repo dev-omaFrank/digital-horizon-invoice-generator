@@ -1,6 +1,6 @@
 @extends('layouts.landing')
 
-@section('title', 'PayMint Invoices - Simple Invoice Generator for Freelancers')
+@section('title', 'Ledgerly Invoices - Simple Invoice Generator for Freelancers')
 
 @section('content')
 <!-- Hero Section -->
@@ -12,7 +12,7 @@
                     Create professional invoices in 30 seconds
                 </h1>
                 <p class="mt-6 text-xl text-slate-600 leading-relaxed">
-                    Get paid faster with PayMint. The simplest invoice generator for freelancers and small businesses.
+                    Get paid faster with Ledgerly. The simplest invoice generator for freelancers and small businesses.
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row gap-4">
                     <a href="/register" class="btn-primary text-center">Start Free</a>
@@ -193,7 +193,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach([
-                ['SC', 'Sarah Chen', 'Freelance Designer', 'PayMint cut my invoicing time in half. I can focus on design instead of admin work.'],
+                ['SC', 'Sarah Chen', 'Freelance Designer', 'Ledgerly cut my invoicing time in half. I can focus on design instead of admin work.'],
                 ['MR', 'Marcus Rodriguez', 'Solo Founder', 'The payment tracking feature alone is worth it. No more chasing clients for payment status.'],
                 ['ET', 'Emma Thompson', 'Creative Director', 'Professional, simple, and actually enjoyable to use. Highly recommended for freelancers.']
             ] as $testimonial)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Failed - Digital Horizon Invoices</title>
+    <title>Payment Failed - Ledgerly Invoices</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes shake {
@@ -59,7 +59,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                     </div>
-                    <span class="text-lg font-bold text-slate-900">Digital Horizon</span>
+                    <span class="text-lg font-bold text-slate-900">Ledgerly</span>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@
     <footer class="border-t border-slate-200 bg-white mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col sm:flex-row items-center justify-between">
-                <p class="text-sm text-slate-600">© 2024 Digital Horizon. All rights reserved.</p>
+                <p class="text-sm text-slate-600">© 2024 Ledgerly. All rights reserved.</p>
                 <div class="flex gap-6 mt-4 sm:mt-0">
                     <a href="#" class="text-sm text-slate-600 hover:text-slate-900 transition-colors">Privacy</a>
                     <a href="#" class="text-sm text-slate-600 hover:text-slate-900 transition-colors">Terms</a>

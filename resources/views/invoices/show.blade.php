@@ -118,7 +118,7 @@
             </p>
         </div>
         <div>
-            <em>Generate customized Invoices with PayMint. Click <a href="{{ env('APP_URL') }}">here</a> to get started.</em>
+            <em>Generate customized Invoices with Ledgerly. Click <a href="{{ env('APP_URL') }}">here</a> to get started.</em>
         </div>
 
         </footer>

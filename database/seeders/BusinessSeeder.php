@@ -26,13 +26,13 @@ class BusinessSeeder extends Seeder
         // Define businesses with bank accounts
         $businesses = [
             [
-                'business_name' => 'PayMint',
+                'business_name' => 'Ledgerly',
                 'currency' => 'NGN',
                 'business_email' => 'info@digitalhorizon.com',
                 'business_address' => '123 Tech Street, Lagos',
                 'business_phone_no' => '08012345678',
                 'bank_account' => [
-                    'account_name' => 'PayMint Nigeria',
+                    'account_name' => 'Ledgerly Nigeria',
                     'account_number' => '1234567890',
                     'bank_name' => 'GTBank',
                     'bank_code' => '058',

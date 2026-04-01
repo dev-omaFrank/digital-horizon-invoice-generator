@@ -1,4 +1,4 @@
-# PayMint Invoices
+# Ledgerly Invoices
 
 A dead-simple invoice generator for freelancers and small businesses built with Laravel Blade, TailwindCSS, and Alpine.js.
 
