@@ -40,7 +40,7 @@ class BillingController extends Controller
                 'reference' => $reference,
                 'first_name' => $validated['cardholder_name'],
                 'last_name' => '',
-                'plan' => 'PLN_h5od9dcview7qpn' // live plan code,
+                'plan' => 'PLN_h5od9dcview7qpn', // live plan code,
                 'callback_url' => route('payments.callback'),
 
                 'metadata' => [
