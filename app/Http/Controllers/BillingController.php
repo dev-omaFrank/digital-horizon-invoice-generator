@@ -42,6 +42,12 @@ class BillingController extends Controller
                 'last_name' => '',
                 'plan' => 'PLN_h5od9dcview7qpn', // live plan code,
                 'callback_url' => route('payments.callback'),
+                'channels' => [
+                    'card',
+                    'bank',
+                    'bank_transfer',
+                    'ussd',
+                ],
 
                 'metadata' => [
                     'cardholder_name' => $validated['cardholder_name'],
