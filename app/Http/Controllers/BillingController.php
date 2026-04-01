@@ -25,40 +25,61 @@ class BillingController extends Controller
 
     public function initializePayment(Request $request)
     {
-        $validated = $request->validate([
-            'email' => ['required', 'email'],
-            'amount' => ['required', 'numeric', 'min:2000'],
-            'cardholder_name' => ['required', 'string'],
-        ]);
+        try {
+            $validated = $request->validate([
+                'email' => ['required', 'email'],
+                'amount' => ['required', 'numeric', 'min:2000'],
+                'cardholder_name' => ['required', 'string'],
+            ]);
 
-        $reference = uniqid('pay_');
+            $reference = uniqid('pay_');
 
-        $response = $this->paystack->initializeTransaction([
-            'email' => $validated['email'],
-            'amount' => $validated['amount'] * 100, // Kobo to naira
-            'reference' => $reference,
-            'first_name' => $validated['cardholder_name'],
-            'last_name' => '',
-            'plan' => 'PLN_gkr6p0djrhmtrcz',
-            'callback_url' => route('payments.callback'),
-            
-            'metadata' => [
-                'cardholder_name' => $validated['cardholder_name'],
-                'custom_fields' => [
-                    [
-                        'display_name' => 'Cardholder Name',
-                        'variable_name' => 'cardholder_name',
-                        'value' => $validated['cardholder_name'],
+            $response = $this->paystack->initializeTransaction([
+                'email' => $validated['email'],
+                'amount' => $validated['amount'] * 100,
+                'reference' => $reference,
+                'first_name' => $validated['cardholder_name'],
+                'last_name' => '',
+                'plan' => 'PLN_gkr6p0djrhmtrcz',
+                'callback_url' => route('payments.callback'),
+
+                'metadata' => [
+                    'cardholder_name' => $validated['cardholder_name'],
+                    'custom_fields' => [
+                        [
+                            'display_name' => 'Cardholder Name',
+                            'variable_name' => 'cardholder_name',
+                            'value' => $validated['cardholder_name'],
+                        ],
                     ],
                 ],
-            ],
-        ]);
+            ]);
 
-        if (!$response['status']) {
-            return back()->withErrors('Unable to initialize payment');
+            // Log Paystack response for debugging
+            \Log::info('Paystack Init Response', $response);
+
+            if (!isset($response['status']) || !$response['status']) {
+                \Log::error('Paystack initialization failed', [
+                    'response' => $response,
+                    'reference' => $reference,
+                ]);
+
+                return back()->withErrors('Unable to initialize payment');
+            }
+
+            return redirect($response['data']['authorization_url']);
+
+        } catch (\Throwable $e) {
+
+            \Log::error('Payment initialization exception', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return back()->withErrors('Something went wrong. Please try again.');
         }
-
-        return redirect($response['data']['authorization_url']);
     }
 
     public function callBack(Request $request)
