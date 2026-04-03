@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
-use Spatie\Browsershot\Browsershot;
+use Barryvdh\DomPDF\Facade\Pdf;
+ use Illuminate\Support\Str;
 
 class invoiceController extends Controller
 {
@@ -33,55 +34,62 @@ class invoiceController extends Controller
         return view('invoices.create', compact('clients', 'businesses', 'userInitials'));
     }
 
+   
+
     public function createInvoice(InvoiceRequest $request)
     {
         $data = $request->validated();
-       
-        $invoice =  DB::transaction(function() use ($data){
-            $year = Carbon::parse($data['issue_date'])->year();
 
-            //format inv number
+        $invoice = DB::transaction(function () use ($data) {
+            $year = Carbon::parse($data['issue_date'])->year;
+
+            // Lock last invoice row for this business/year to avoid race conditions
             $lastInvoice = Invoice::where('business_id', $data['business_id'])
                 ->whereYear('issue_date', $year)
                 ->lockForUpdate()
                 ->orderByDesc('id')
                 ->first();
 
-            if($lastInvoice){
-                $lastNumber = (int) substr($lastInvoice->invoiceNumber, -5);
-                $nextNumber = $lastNumber + 1;
-            }else{
-                $nextNumber = 1;
-            }
+            // Dynamically generate invoice number
+            do {
+                $nextNumber = $lastInvoice
+                    ? (int) substr($lastInvoice->invoice_number, -5) + 1
+                    : 1;
 
-            $formattedSequence = str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+                $formattedSequence = str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+                $invoiceNumber = "INV-{$formattedSequence}";
 
-            $invoiceNumber = "INV-{$formattedSequence}";
+                // Check if invoice number already exists
+                $exists = Invoice::where('invoice_number', $invoiceNumber)
+                    ->lockForUpdate()
+                    ->exists();
 
-            //calculate monetary values
-            $subtotal = collect($data['items'])->sum(function($item){
-            return $item['quantity'] * $item['price'];
-            });
+                $nextNumber++; // increment if it exists
+            } while ($exists);
 
+            // calculate monetary values
+            $subtotal = collect($data['items'])->sum(fn($item) => $item['quantity'] * $item['price']);
             $taxAmount = $subtotal * ($data['tax'] / 100);
-
             $total = $subtotal + $taxAmount - $data['discount'];
 
-            if($total < 0)
-            {
+            if ($total < 0) {
                 throw ValidationException::withMessages([
                     'discount' => 'Discount cannot exceed invoice total.'
                 ]);
             }
 
-            $invoice = Invoice::create([
-                ...collect($data)->except(['items'])->toArray(),
-                'user_id' => auth()->id(),
-                'invoice_number' => $invoiceNumber,
-                'subtotal' => round($subtotal, 2),
-                'tax' => round($taxAmount, 2),
-                'total' => round($total, 2),
-            ]);
+            $invoiceData = collect($data)
+                ->except(['items']) // remove nested items
+                ->toArray();
+
+            $invoiceData['user_id'] = auth()->id(); // explicitly set user_id
+            $invoiceData['invoice_number'] = $invoiceNumber;
+            $invoiceData['subtotal'] = round($subtotal, 2);
+            $invoiceData['tax'] = round($taxAmount, 2);
+            $invoiceData['total'] = round($total, 2);
+
+
+            $invoice = Invoice::create($invoiceData);
 
             foreach ($data['items'] as $item) {
                 $invoice->items()->create([
@@ -95,10 +103,9 @@ class invoiceController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Invoice created successfully.'
+            'message' => 'Invoice created successfully.',
             // 'data' => $invoice
         ]);
-
     }
     
     public function fetchInvoices(){
@@ -139,36 +146,24 @@ class invoiceController extends Controller
         return view('invoices.show', compact('invoice'));
     }
 
+
     public function downloadInvoicePdf(Invoice $invoice)
     {
         if ($invoice->user_id !== auth()->id()) {
             abort(403);
         }
-        
+
         $invoice->load(['business', 'client', 'items']);
 
-        $sessionName = config('session.cookie');
-        $sessionValue = request()->cookie($sessionName);
+        // Pass a flag to indicate PDF mode
+        $pdf = Pdf::loadView('invoices.show', [
+            'invoice' => $invoice,
+            'isPdf' => true, // <--- key change
+        ])->setPaper('a4', 'portrait');
 
-        $signedUrl = URL::temporarySignedRoute(
-            'invoices.pdf.view',      
-            now()->addMinutes(5),     
-            ['invoice' => $invoice->id]
+        return response()->streamDownload(
+            fn () => print($pdf->output()),
+            "invoice-{$invoice->invoice_number}.pdf"
         );
-
-        $pdf = Browsershot::url($signedUrl)
-            ->ignoreHttpsErrors()
-            ->emulateMedia('print')
-            ->waitUntilNetworkIdle()
-            ->format('A4')
-            ->pdf();
-
-        
-        return response($pdf)
-            ->header('Content-Type', 'application/pdf')
-            ->header(
-                'Content-Disposition',
-                'attachment; filename="invoice-'.$invoice->invoice_number.'.pdf"'
-            );
-    }
+    }       
 }

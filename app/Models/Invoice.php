@@ -18,6 +18,7 @@ class Invoice extends Model
         'discount',
         'total',
         'currency',
+        'user_id',
         'notes',
     ];
 
